@@ -1,0 +1,21 @@
+# Python
+backend/venv/
+backend/__pycache__/
+backend/*.pyc
+backend/tasks.db
+backend/server.log
+backend/server.err
+backend/.pid
+__pycache__/
+*.pyc
+
+# Node
+frontend/node_modules/
+frontend/dist/
+frontend/.pid
+frontend/server.log
+frontend/server.err
+
+# OS
+.DS_Store
+Thumbs.db
