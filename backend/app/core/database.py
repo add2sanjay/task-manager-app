@@ -1,14 +1,23 @@
+from pathlib import Path
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 
-# SQLite stores the database in a local file called tasks.db
-# The file is created automatically on first run
-SQLALCHEMY_DATABASE_URL = "sqlite:///./tasks.db"
+from app.core.config import settings
+
+# For the default sqlite URL, resolve the file relative to the backend/
+# directory (not the process CWD) so `tasks.db` always lands in the same
+# place regardless of where `uvicorn` is launched from.
+_database_url = settings.DATABASE_URL
+if _database_url.startswith("sqlite:///./"):
+    backend_dir = Path(__file__).resolve().parent.parent.parent
+    db_path = backend_dir / _database_url.removeprefix("sqlite:///./")
+    _database_url = f"sqlite:///{db_path}"
 
 # check_same_thread=False is required for SQLite when used with FastAPI,
 # because FastAPI handles requests concurrently across threads
 engine = create_engine(
-    SQLALCHEMY_DATABASE_URL,
+    _database_url,
     connect_args={"check_same_thread": False}
 )
 
