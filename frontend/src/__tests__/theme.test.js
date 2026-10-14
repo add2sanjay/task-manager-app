@@ -18,9 +18,12 @@ describe('turquoise theme (issue #1)', () => {
     expect(root).toMatch(/--dark-red:\s*#8b0000/i)
   })
 
-  it('uses a turquoise page background and heading', () => {
-    expect(rule('body')).toMatch(/background:\s*var\(--turquoise-light\)/)
-    expect(rule('h1')).toMatch(/color:\s*var\(--turquoise-dark\)/)
+  it('uses a turquoise page background and heading in the default theme', () => {
+    const root = rule(':root')
+    expect(root).toMatch(/--page-bg:\s*var\(--turquoise-light\)/)
+    expect(root).toMatch(/--heading:\s*var\(--turquoise-dark\)/)
+    expect(rule('body')).toMatch(/background:\s*var\(--page-bg\)/)
+    expect(rule('h1')).toMatch(/color:\s*var\(--heading\)/)
   })
 
   it('makes every button dark red with white text', () => {
