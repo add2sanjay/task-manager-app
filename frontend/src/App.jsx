@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import ThemeSwitcher from './features/theme/ThemeSwitcher'
 
 // Base URL for all API calls — change this if you move the backend
 const API = 'http://localhost:8000'
@@ -96,7 +97,10 @@ export default function App() {
 
   return (
     <div className="container">
-      <h1>Task Manager</h1>
+      <header className="header">
+        <h1>Task Manager</h1>
+        <ThemeSwitcher />
+      </header>
 
       {/* Error banner — only shown when error is non-null */}
       {error && (
